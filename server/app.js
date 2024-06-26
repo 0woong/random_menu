@@ -28,18 +28,14 @@ app.use("/users", usersRouter);
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// 1. mongoose 모듈 가져오기
+
+// mongoose
 var mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
-// 2. DB 세팅
 mongoose.connect(process.env.DB_URL);
-// 3. 연결된 DB 사용
 var db = mongoose.connection;
-// 4. 연결 실패
 db.on("error", function () {
   console.log("Connection Failed!");
 });
-// 5. 연결 성공
 db.once("open", function () {
   console.log("Connected!");
 });
