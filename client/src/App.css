@@ -1,0 +1,39 @@
+/* src/App.css */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.Title {
+  color: #343a40;
+}
+
+.MenuList {
+  list-style: none;
+  padding: 0;
+}
+
+.MenuItem {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: #495057;
+}
+
+.Button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: #0056b3;
+}
