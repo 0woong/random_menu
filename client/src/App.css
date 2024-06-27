@@ -6,7 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* 화면 전체 높이로 설정 */
+  height: 100vh;
 }
 
 .container {
@@ -20,6 +20,29 @@ body {
 h1 {
   text-align: center;
   color: #333;
+}
+
+.category-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.category-button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #f0f0f0;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.category-button.selected {
+  background-color: #007bff;
+  color: white;
 }
 
 .button-container {
@@ -73,27 +96,9 @@ h1 {
   text-decoration: underline;
 }
 
-/* app.css */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 .menu-form {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .menu-form input {
@@ -120,15 +125,13 @@ h1 {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .menu-list li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .menu-list li span {
@@ -144,8 +147,18 @@ h1 {
   cursor: pointer;
   border-radius: 4px;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
 
 .menu-list li button:hover {
   background-color: #c82333;
+}
+
+.menu-list li .edit-button {
+  background-color: #007bff;
+  margin-left: 10px;
+}
+
+.menu-list li .edit-button:hover {
+  background-color: #0056b3;
 }
