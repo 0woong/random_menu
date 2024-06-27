@@ -56,7 +56,7 @@ const menuController = {
     try {
       const result = await menu.findByIdAndUpdate(
         id,
-        { name, category },
+        { name, category, updateDate: new Date() },
         { new: true }
       );
       return res.status(200).json({
