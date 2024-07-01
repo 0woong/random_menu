@@ -1,5 +1,6 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const jwtSecret = require("../config/jwtSecret.json");
+const jwtSecret = process.env.JWT_SECRET_KEY;
 
 const jwtModule = {
   create: (payload) => {
@@ -7,9 +8,9 @@ const jwtModule = {
     const option = {
       algorithm: "HS256",
       expiresIn: "30d",
-      issuer: "test",
+      issuer: "eroe",
     };
-    const token = jwt.sign(payload, jwtSecret.secretKey, option);
+    const token = jwt.sign(payload, jwtSecret, option);
     // 매개변수, 시크릿키, 옵션;
 
     return token;
@@ -19,7 +20,7 @@ const jwtModule = {
     // jwt 확인
     let decoded;
     try {
-      decoded = jwt.verify(token, jwtSecret.secretKey);
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       if (error.message === "jwt expired") {
         console.log("expired token");

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [menus, setMenus] = useState([]);
   const [randomMenu, setRandomMenu] = useState(null);
   const [excludeMenu, setExcludeMenu] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchMenus();
-    // 처음 로드될 때 "전체" 카테고리 선택
     setSelectedCategories(["전체", "한식", "양식", "중식", "일식"]);
   }, []);
 
@@ -63,7 +63,7 @@ const Home = () => {
             const newCategories = prevCategories.filter(
               (cat) => cat !== category
             );
-            return newCategories.length === 0 ? [] : newCategories;
+            return newCategories.length === 0 ? [""] : newCategories;
           } else {
             const newCategories = [
               ...prevCategories.filter((cat) => cat !== "전체"),
@@ -82,7 +82,13 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1>오늘 뭐 먹지?</h1>
+      <div className="header">
+        <h1>오늘 뭐 먹지?</h1>
+        <div className="auth-buttons">
+          <button onClick={() => navigate("/signup")}>회원가입</button>
+          <button onClick={() => navigate("/signin")}>로그인</button>
+        </div>
+      </div>
       <div className="category-filter">
         {categories.map((category) => (
           <button

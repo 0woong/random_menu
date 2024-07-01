@@ -1,6 +1,5 @@
-const user = require("../../models/user");
-const jwtModule = require("../../modules/jwtModule");
-const authModule = require("../../modules/authModule");
+const user = require("../models/user");
+const jwtModule = require("../modules/jwtModule");
 
 const authController = {
   signUp: async (req, res) => {
