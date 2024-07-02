@@ -162,3 +162,85 @@ h1 {
 .menu-list li .edit-button:hover {
   background-color: #0056b3;
 }
+
+.auth-buttons {
+  position: relative;
+  top: -50px;
+  left: 380px;
+}
+
+.auth-buttons button {
+  padding: 7px 6px;
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  margin-right: 12px;
+}
+
+.sign-in h2 {
+  text-align: center;
+}
+
+.sign-in label {
+  margin-right: 15px;
+}
+
+.sign-in input {
+  width: 200px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+.sign-up {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 500px;
+  max-width: 100%;
+  min-height: 400px;
+}
+
+.sign-up h2 {
+  text-align: center;
+}
+
+.sign-up label {
+  margin-right: 15px;
+}
+
+.sign-up input {
+  width: 200px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+.sign-up p {
+  margin: 10px 0;
+}
+
+form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}

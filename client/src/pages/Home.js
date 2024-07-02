@@ -1,26 +1,54 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { getMenus } from "../services/menuService";
+import { getProfile } from "../services/authService";
 
 const Home = () => {
   const [menus, setMenus] = useState([]);
   const [randomMenu, setRandomMenu] = useState(null);
   const [excludeMenu, setExcludeMenu] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nickName, setNickName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchMenus();
     setSelectedCategories(["전체", "한식", "양식", "중식", "일식"]);
+
+    // 로그인 상태 확인
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      // 로그인된 유저 정보 가져오기
+      profile(token);
+    }
   }, []);
 
   const fetchMenus = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/menu");
+      const response = await getMenus();
       setMenus(response.data.data);
     } catch (error) {
       console.error("Error fetching menus", error);
     }
+  };
+
+  const profile = async (token) => {
+    try {
+      const response = await getProfile(token);
+      if (response.data) {
+        setNickName(response.data.nickName);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.error("Error fetching profile", error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsLoggedIn(false);
+    setNickName("");
   };
 
   const handleSelectRandomMenu = () => {
@@ -85,8 +113,17 @@ const Home = () => {
       <div className="header">
         <h1>오늘 뭐 먹지?</h1>
         <div className="auth-buttons">
-          <button onClick={() => navigate("/signup")}>회원가입</button>
-          <button onClick={() => navigate("/signin")}>로그인</button>
+          {isLoggedIn ? (
+            <>
+              <span>{nickName}님</span>
+              <button onClick={handleLogout}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => navigate("/signup")}>회원가입</button>
+              <button onClick={() => navigate("/signin")}>로그인</button>
+            </>
+          )}
         </div>
       </div>
       <div className="category-filter">
