@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
   getMenus,
-  deleteMenu,
-  updateMenu,
   addMenu,
+  updateMenu,
+  deleteMenu,
 } from "../services/menuService";
-import MenuForm from "./MenuForm";
 
 const MenuList = () => {
   const [menus, setMenus] = useState([]);
-  const [selectedMenu, setSelectedMenu] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [newMenuName, setNewMenuName] = useState("");
-  const [newMenuCategory, setNewMenuCategory] = useState("");
+  const [editingMenu, setEditingMenu] = useState(null);
+  const [formData, setFormData] = useState({ name: "", category: "한식" });
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchMenus();
@@ -27,87 +25,153 @@ const MenuList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleAdd = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name) {
+      setError("메뉴 이름을 입력하세요.");
+      return;
+    }
+
     try {
-      await deleteMenu(id);
-      setMenus(menus.filter((menu) => menu._id !== id));
-      alert("메뉴가 삭제되었습니다.");
+      const response = await addMenu(formData);
+      if (response.status === 200) {
+        setMenus([...menus, response.data.data]);
+        setFormData({ name: "", category: "한식" });
+        setError("");
+      }
     } catch (error) {
-      console.error("Error deleting menu", error);
-      alert("메뉴 삭제 중 오류가 발생했습니다.");
+      console.error("Error adding menu", error);
+      setError("메뉴 추가 중 오류가 발생했습니다.");
     }
   };
 
   const handleEdit = (menu) => {
-    setSelectedMenu(menu);
-    setShowForm(true);
+    setEditingMenu(menu._id);
+    setFormData({ name: menu.name, category: menu.category });
   };
 
-  const handleUpdate = async (updatedMenu) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleUpdate = async (id) => {
+    if (!formData.name) {
+      setError("메뉴 이름을 입력하세요.");
+      return;
+    }
+
     try {
-      await updateMenu(updatedMenu._id, updatedMenu);
-      fetchMenus();
-      setSelectedMenu(null);
-      setShowForm(false);
-      alert("메뉴가 수정되었습니다.");
+      const response = await updateMenu(id, formData);
+      if (response.status === 200) {
+        fetchMenus();
+        setEditingMenu(null);
+        setFormData({ name: "", category: "한식" });
+        setError("");
+      }
     } catch (error) {
       console.error("Error updating menu", error);
-      alert("메뉴 수정 중 오류가 발생했습니다.");
+      setError("메뉴 업데이트 중 오류가 발생했습니다.");
     }
   };
 
-  const handleAddSubmit = async () => {
-    const newMenu = {
-      name: newMenuName,
-      category: newMenuCategory,
-    };
-
+  const handleDelete = async (id) => {
     try {
-      await addMenu(newMenu);
-      fetchMenus();
-      setNewMenuName("");
-      setNewMenuCategory("");
-      alert("새 메뉴가 추가되었습니다.");
+      const response = await deleteMenu(id);
+      if (response.status === 200) {
+        fetchMenus();
+      }
     } catch (error) {
-      console.error("Error adding menu", error);
-      alert("메뉴 추가 중 오류가 발생했습니다.");
+      console.error("Error deleting menu", error);
     }
   };
+
+  const categories = ["한식", "양식", "중식", "일식"];
 
   return (
-    <div className="container">
-      <div className="menu-form">
-        <input
-          type="text"
-          value={newMenuName}
-          onChange={(e) => setNewMenuName(e.target.value)}
-          placeholder="메뉴 이름"
-        />
-        <input
-          type="text"
-          value={newMenuCategory}
-          onChange={(e) => setNewMenuCategory(e.target.value)}
-          placeholder="카테고리"
-        />
-        <button onClick={handleAddSubmit}>추가</button>
-      </div>
-      <ul className="menu-list">
+    <div className="menu-list">
+      <form className="menu-list-form" onSubmit={handleAdd}>
+        <div>
+          <label>메뉴 이름</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>카테고리</label>
+          <div>
+            {categories.map((category) => (
+              <label key={category}>
+                <input
+                  type="radio"
+                  name="category"
+                  value={category}
+                  checked={formData.category === category}
+                  onChange={handleChange}
+                />
+                {category}
+              </label>
+            ))}
+          </div>
+        </div>
+        <button type="submit">추가</button>
+        {error && <p className="error-message">{error}</p>}
+      </form>
+
+      <ul>
         {menus.map((menu) => (
           <li key={menu._id}>
-            <span>
-              {menu.name} - {menu.category}
-            </span>
-            <button onClick={() => handleEdit(menu)}>수정</button>
-            <button onClick={() => handleDelete(menu._id)}>삭제</button>
+            {editingMenu === menu._id ? (
+              <>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                <div>
+                  {categories.map((category) => (
+                    <label key={category}>
+                      <input
+                        type="radio"
+                        name="category"
+                        value={category}
+                        checked={formData.category === category}
+                        onChange={handleChange}
+                      />
+                      {category}
+                    </label>
+                  ))}
+                </div>
+                <button
+                  className="edit-button"
+                  onClick={() => handleUpdate(menu._id)}
+                >
+                  저장
+                </button>
+                <button onClick={() => setEditingMenu(null)}>취소</button>
+              </>
+            ) : (
+              <>
+                <span>
+                  {menu.name} - {menu.category}
+                </span>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(menu)}
+                >
+                  수정
+                </button>
+                <button onClick={() => handleDelete(menu._id)}>삭제</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
-      {showForm && (
-        <MenuForm
-          selectedMenu={selectedMenu}
-          onSubmit={selectedMenu ? handleUpdate : handleAddSubmit}
-        />
-      )}
     </div>
   );
 };

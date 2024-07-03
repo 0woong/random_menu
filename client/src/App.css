@@ -20,6 +20,15 @@ body {
 h1 {
   text-align: center;
   color: #333;
+  padding-top: 50px;
+}
+
+.home {
+  width: 600px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .category-filter {
@@ -84,7 +93,7 @@ h1 {
 .link {
   display: block;
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .link a {
@@ -166,7 +175,7 @@ h1 {
 .auth-buttons {
   position: relative;
   top: -50px;
-  left: 380px;
+  left: 450px;
 }
 
 .auth-buttons button {
@@ -179,6 +188,17 @@ h1 {
   font-size: 14px;
   transition: all 0.3s ease;
   margin-right: 12px;
+}
+
+.auth-buttons span {
+  margin-right: 12px;
+}
+
+label {
+  display: inline-block;
+  text-align: center;
+  width: 80px;
+  font-weight: bold;
 }
 
 .sign-in h2 {
@@ -198,17 +218,6 @@ h1 {
   outline: none;
   padding-left: 10px;
   background-color: rgb(233, 233, 233);
-}
-
-.sign-up {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  position: relative;
-  overflow: hidden;
-  width: 500px;
-  max-width: 100%;
-  min-height: 400px;
 }
 
 .sign-up h2 {
@@ -234,13 +243,194 @@ h1 {
   margin: 10px 0;
 }
 
-form {
+.sign-up {
   background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 50px;
+  padding: 50px;
   height: 100%;
   text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  width: 500px;
+  max-width: 100%;
+  min-height: 400px;
+}
+
+.sign-in {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  height: 100%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  width: 500px;
+  max-width: 100%;
+  min-height: 400px;
+}
+
+/* Signup and Signin page styles */
+.form-container {
+  text-align: center;
+}
+
+.form-container input {
+  width: calc(100% - 24px);
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-right: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.sign-in-form div {
+  padding-bottom: 25px;
+}
+
+.sign-up-form div {
+  padding-bottom: 25px;
+}
+
+/* Menu List styles */
+.menu-list {
+  margin-top: 20px;
+}
+
+.menu-list form {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.menu-list form div {
+  margin-bottom: 10px;
+}
+
+.menu-list form input[type="text"] {
+  width: calc(100% - 24px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.menu-list form input[type="radio"] {
+  margin-right: 5px;
+}
+
+.menu-list form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.menu-list form button:hover {
+  background-color: #0056b3;
+}
+
+.menu-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.menu-list li span {
+  flex: 1;
+}
+
+.menu-list li button {
+  padding: 6px 12px;
+  margin-left: 5px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.menu-list li button:hover {
+  background-color: #c82333;
+}
+
+.menu-list li .edit-button {
+  background-color: #007bff;
+}
+
+.menu-list li .edit-button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+.menu-list-form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  height: 100%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  width: 400px;
+  max-width: 100%;
 }

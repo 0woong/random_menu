@@ -29,7 +29,7 @@ const SignIn = () => {
   return (
     <div className="sign-in">
       <h2>로그인</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="sign-in-form" onSubmit={handleSubmit}>
         <div>
           <label>ID</label>
           <input
