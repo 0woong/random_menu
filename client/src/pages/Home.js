@@ -4,18 +4,18 @@ import { getMenus } from "../services/menuService";
 import { getProfile } from "../services/authService";
 
 const Home = () => {
+  const allCategories = ["전체", "한식", "양식", "중식", "일식"];
+
   const [menus, setMenus] = useState([]);
   const [randomMenu, setRandomMenu] = useState(null);
   const [excludeMenu, setExcludeMenu] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(allCategories);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nickName, setNickName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchMenus();
-    setSelectedCategories(["전체", "한식", "양식", "중식", "일식"]);
-
     // 로그인 상태 확인
     const token = localStorage.getItem("accessToken");
     if (token) {
@@ -75,11 +75,9 @@ const Home = () => {
 
   const handleCategoryToggle = (category) => {
     if (category === "전체") {
-      if (selectedCategories.includes("전체")) {
-        setSelectedCategories([]);
-      } else {
-        setSelectedCategories(["전체", "한식", "양식", "중식", "일식"]);
-      }
+      selectedCategories.includes("전체")
+        ? setSelectedCategories([])
+        : setSelectedCategories(allCategories);
     } else {
       setSelectedCategories((prevCategories) => {
         if (prevCategories.includes("전체")) {
@@ -94,19 +92,15 @@ const Home = () => {
             return newCategories.length === 0 ? [""] : newCategories;
           } else {
             const newCategories = [
-              ...prevCategories.filter((cat) => cat !== "전체"),
+              ...prevCategories.filter((cat) => cat !== ""),
               category,
             ];
-            return newCategories.length === 4
-              ? ["전체", "한식", "양식", "중식", "일식"]
-              : newCategories;
+            return newCategories.length === 4 ? allCategories : newCategories;
           }
         }
       });
     }
   };
-
-  const categories = ["전체", "한식", "양식", "중식", "일식"];
 
   return (
     <div className="home">
@@ -127,7 +121,7 @@ const Home = () => {
         </div>
       </div>
       <div className="category-filter">
-        {categories.map((category) => (
+        {allCategories.map((category) => (
           <button
             key={category}
             className={`category-button ${
