@@ -146,11 +146,15 @@ const Home = () => {
           </p>
         </div>
       )}
-      <div className="link">
-        <Link to="/menu" className="manage-link">
-          메뉴 관리 페이지로 가기
-        </Link>
-      </div>
+      {isLoggedIn && (
+        <>
+          <div className="link">
+            <Link to="/menu" className="manage-link">
+              메뉴 관리 페이지로 가기
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
